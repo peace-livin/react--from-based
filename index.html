@@ -45,25 +45,28 @@
         let [counter, setCounter] = React.useState(0);
 
         return (
-          <div className="flex text-6xl border border-zinc-600 w-fit p-2 gap-3 rounded-lg mb-3">
-            <button
-              className="bg-blue-300 rounded-sm"
-              onClick={() => setCounter((preVal) => preVal - 1)}
-            >
-              -
-            </button>
-            <p>{counter}</p>
-            <button
-              className="bg-blue-300 rounded-sm"
-              onClick={() => setCounter((preVal) => preVal + 1)}
-            >
-              +
-            </button>
-          </div>
+          <React.Fragment>
+            <div className="flex text-6xl border border-zinc-600 w-fit p-2 gap-3 rounded-lg mb-3">
+              <button
+                className="bg-blue-300 rounded-sm"
+                onClick={() => setCounter((preVal) => preVal - 1)}
+              >
+                -
+              </button>
+              <p>{counter}</p>
+              <button
+                className="bg-blue-300 rounded-sm"
+                onClick={() => setCounter((preVal) => preVal + 1)}
+              >
+                +
+              </button>
+            </div>
+            <Grid limit={counter} />
+          </React.Fragment>
         );
       }
 
-      function Grid() {
+      function Grid({ limit = 1 }) {
         const data = [
           {
             id: 1,
@@ -91,7 +94,7 @@
 
         return (
           <div className="flex flex-wrap gap-4">
-            {data.map((currentObj) => {
+            {data.slice(0, limit).map((currentObj) => {
               return (
                 <div
                   key={currentObj.id}
@@ -118,16 +121,16 @@
               </code>
             </p>
             <Counter />
-            <Grid />
+            {/* <Grid limit={3} /> */}
           </main>
         );
       }
 
       root.render(
-        <React.Fragment>
+        <React.StrictMode>
           <Header>React From Base</Header>
           <Main />
-        </React.Fragment>
+        </React.StrictMode>
       );
     </script>
   </body>
