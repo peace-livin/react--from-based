@@ -56,19 +56,16 @@
         function handleClick(operation = "+") {
           if (operation === "+") {
             setCounter((prevValue) => {
-              handleChange(prevValue + 1);
-              return prevValue + 1;
+              let newValue = operation === "+" ? prevValue + 1 : prevValue - 1;
+              handleChange(newValue);
+              return newValue;
             });
+              
+            }
 
             return;
           }
-
-          setCounter((prevValue) => {
-            handleChange(prevValue - 1);
-            return prevValue - 1;
-          });
-        }
-
+        
         return (
           <React.Fragment>
             <div className="flex text-6xl border border-zinc-600 w-fit p-2 gap-3 rounded-lg mb-3">
