@@ -55,23 +55,25 @@
 
         function handleClick(operation = "+") {
           if (operation === "+") {
-            setCounter((preValue) =>{
-              handleChange(preValue + 1);
-              return preValue + 1;
+            setCounter((prevValue) => {
+              handleChange(prevValue + 1);
+              return prevValue + 1;
             });
+
             return;
-          } 
-          setCounter((preValue) =>{
-              handleChange(preValue - 1);
-              return preValue - 1;
-            });
+          }
+
+          setCounter((prevValue) => {
+            handleChange(prevValue - 1);
+            return prevValue - 1;
+          });
         }
 
         return (
           <React.Fragment>
             <div className="flex text-6xl border border-zinc-600 w-fit p-2 gap-3 rounded-lg mb-3">
               <button
-                className="bg-blue-300 rounded-sm"
+                className="bg-red-300 rounded-sm"
                 onClick={() => handleClick("-")}
                 disabled={counter === 0}
               >
@@ -79,7 +81,7 @@
               </button>
               <p>{counter}</p>
               <button
-                className="bg-blue-300 rounded-sm"
+                className="bg-green-300 rounded-sm"
                 onClick={() => handleClick("+")}
               >
                 +
@@ -157,23 +159,8 @@
 
       root.render(
         <React.StrictMode>
-          <Header bgColor="red">React From Base</Header>
+          <Header bgColor="blue">React From Base</Header>
           <Main />
-        </React.StrictMode>
-      );
-    </script>
-  </body>
-</html><!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>React From Base</title>
-    <!-- Fonts -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/hack.min.css"
-…          <Main/>
         </React.StrictMode>
       );
     </script>
