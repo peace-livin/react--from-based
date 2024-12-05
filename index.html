@@ -173,9 +173,9 @@ const [color, setColor] = React.useState();
                 package.json
               </code>
             </p>
-            <Counter handleChange={handleChange} bgColor ="#000000"/>
-            <input type="color" className="border" onChange={(e)=>(e.target.value)}
-            value={color} />
+            <Counter handleChange={handleChange} bgColor ={color}/>
+            <input type="color"  value ={color} className="border" onChange={(e)=>setColor(e.target.value)}
+             />
             
             <Grid limit={size} />
           </main>
@@ -184,7 +184,7 @@ const [color, setColor] = React.useState();
       function Page() {
         const [title, setTitle] = React.useState();
 const reference = React.useRef(null);
-React.useEffect(() => {reference.current.focus(); },[]);}
+React.useEffect(() => {reference.current.focus(); },[]);
 
          return(
           <div>
@@ -198,12 +198,14 @@ React.useEffect(() => {reference.current.focus(); },[]);}
             className="border border-stone-400"
             value={title}
             onChange={(e)=>setTitle(e.target.value)}
+
+            ref={reference}
             />
        
          <Main />
          </div>
          );
-      }
+        }
 
       root.render(
         <React.StrictMode>
