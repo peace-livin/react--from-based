@@ -50,7 +50,7 @@
         );
       }
 
-      function Counter({ handleChange }) {
+      function Counter({ handleChange ,bgColor="#000000" }) {
         let [counter, setCounter] = React.useState(0);
 
         function handleClick(operation = "+") {
@@ -71,7 +71,9 @@
 
         return (
           <React.Fragment>
-            <div className="flex text-6xl border border-zinc-600 w-fit p-2 gap-3 rounded-lg mb-3">
+            <div className="flex text-6xl border border-zinc-600 w-fit p-2 gap-3 rounded-lg mb-3"
+            style={{backgroundColor:bgColor}}
+            >
               <button
                 className="bg-red-300 rounded-sm"
                 onClick={() => handleClick("-")}
@@ -92,41 +94,61 @@
       }
 
       function Grid({ limit = 1 }) {
-        const data = [
-          {
-            id: 1,
-            name: "React",
-            description: "A JavaScript library for building user interfaces",
-          },
-          {
-            id: 2,
-            name: "Angular",
-            description:
-              "A TypeScript-based open-source front-end web framework",
-          },
-          {
-            id: 3,
-            name: "Vue",
-            description:
-              "A progressive JavaScript framework for building user interfaces",
-          },
-          {
-            id: 4,
-            name: "Svelte",
-            description: "A compiler for building user interfaces",
-          },
-        ];
+        const [data, setData]=React.useState([]);
+const [click,setClick]=React.useState(false);
+
+
+        React.useEffect(()=>{
+    console.log("ho gya")
+fetch("https://raw.githubusercontent.com/gliese-sketch/bbt-cars-inventory/refs/heads/main/src/data.json")
+.then((res)=> res.json())
+.then ((data) =>{
+  console.log(data);
+  setData(data);
+});
+        },[]);
+/* { status: 'ok', method: 'GET' } */
+        // const data = [
+        //   {
+        //     id: 1,
+        //     name: "React",
+        //     description: "A JavaScript library for building user interfaces",
+        //   },
+        //   {
+        //     id: 2,
+        //     name: "Angular",
+        //     description:
+        //       "A TypeScript-based open-source front-end web framework",
+        //   },
+        //   {
+        //     id: 3,
+        //     name: "Vue",
+        //     description:
+        //       "A progressive JavaScript framework for building user interfaces",
+        //   },
+        //   {
+        //     id: 4,
+        //     name: "Svelte",
+        //     description: "A compiler for building user interfaces",
+        //   },
+        // ];
 
         return (
           <div className="flex flex-wrap gap-4">
             {data.slice(0, limit < 0 ? 0 : limit).map((currentObj) => {
+              const price= currentObj.price;
+              const priceFormat =price.toLocaleString("en-IN",{
+                style:"currency",
+                currency:"INR"
+              });
               return (
                 <div
                   key={currentObj.id}
                   className="border border-zinc-800 rounded-lg p-4 w-48"
                 >
-                  <h2 className="text-2xl font-bold mb-2">{currentObj.name}</h2>
-                  <p>{currentObj.description}</p>
+                  <h2 className="text-2xl font-bold mb-2 ">{currentObj.name}</h2>
+                  <p>{priceFormat}</p>
+                  <img src={currentObj.img}/>
                 </div>
               );
             })}
@@ -152,6 +174,7 @@
               </code>
             </p>
             <Counter handleChange={handleChange} />
+            
             <Grid limit={size} />
           </main>
         );
