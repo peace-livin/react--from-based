@@ -45,7 +45,7 @@
           <header
             className={`${backgroundOptions[bgColor]} px-8 py-6 border-b`}
           >
-            <h1 className="text-2xl font-semibold">{children}</h1>
+            <h1 className="text-2xl font-semibold">{children || "React From Base"}</h1>
           </header>
         );
       }
@@ -158,7 +158,7 @@ fetch("https://raw.githubusercontent.com/gliese-sketch/bbt-cars-inventory/refs/h
 
       function Main() {
         const [size, setSize] = React.useState(0);
-
+const [color, setColor] = React.useState();
         function handleChange(value) {
           setSize(value);
         }
@@ -173,17 +173,42 @@ fetch("https://raw.githubusercontent.com/gliese-sketch/bbt-cars-inventory/refs/h
                 package.json
               </code>
             </p>
-            <Counter handleChange={handleChange} />
+            <Counter handleChange={handleChange} bgColor ="#000000"/>
+            <input type="color" className="border" onChange={(e)=>(e.target.value)}
+            value={color} />
             
             <Grid limit={size} />
           </main>
         );
       }
+      function Page() {
+        const [title, setTitle] = React.useState();
+const reference = React.useRef(null);
+React.useEffect(() => {reference.current.focus(); },[]);}
+
+         return(
+          <div>
+            <Header bgColor="blue">{title}</Header>
+           
+            <label htmlFor="title">Enter a title</label>
+            <input type="text"
+            name="title"
+            id="title"
+            placeholder="Enter a title"
+            className="border border-stone-400"
+            value={title}
+            onChange={(e)=>setTitle(e.target.value)}
+            />
+       
+         <Main />
+         </div>
+         );
+      }
 
       root.render(
         <React.StrictMode>
-          <Header bgColor="bluej">React From Base</Header>
-          <Main />
+          <Page/>
+         
         </React.StrictMode>
       );
     </script>
